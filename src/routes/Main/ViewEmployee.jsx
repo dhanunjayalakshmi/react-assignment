@@ -29,7 +29,7 @@ const ViewEmployee = ({ employees, setEmployees }) => {
   return (
     <div className="max-w-3xl flex items-center text-center mt-4 mx-auto">
       <div className="w-full flex flex-col justify-center items-center px-2 mt-4 gap-4">
-        <h1 className="text-3xl font-bold">Employee Details - {id}</h1>
+        <h1 className="text-3xl font-bold">Employee Details</h1>
         <div className="min-w-2xl flex justify-around items-center mt-4">
           <img src={gender === "Male" ? maleImage : femaleImage} alt="" />
 
