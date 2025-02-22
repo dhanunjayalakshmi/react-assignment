@@ -1,10 +1,21 @@
 import { useState } from "react";
+import { EMPLOYEE_DETAILS } from "../../utils/constants";
 
 const UpdateDetails = ({ employee, updateEmployee, updateModal }) => {
   const [formData, setFormData] = useState({ ...employee });
 
+  const details = EMPLOYEE_DETAILS;
+  const employeeInfo = Object.entries(formData);
+
   const handleCancel = () => {
-    setShowModal((prev) => !prev);
+    updateModal();
+  };
+
+  const updateEmployeeInfo = (key, value) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [key]: value,
+    }));
   };
 
   const handleSubmit = (e) => {
@@ -20,103 +31,45 @@ const UpdateDetails = ({ employee, updateEmployee, updateModal }) => {
           onSubmit={handleSubmit}
           className="w-xl h-[80%] flex flex-col gap-2"
         >
-          <div className="flex items-center text-center">
-            <label
-              htmlFor="name"
-              className="block w-1/2 text-lg font-medium text-left"
-            >
-              Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              value={formData?.name}
-              onChange={(e) =>
-                setFormData({ ...formData, name: e.target.value })
-              }
-              placeholder="Please enter your name"
-              className="flex-1 rounded-md border border-gray-300 bg-white px-4 py-2 text-black text-left shadow-sm"
-              required
-            />
-          </div>
-          <div className="flex items-center text-center">
-            <label
-              htmlFor="gender"
-              className="block w-1/2 text-lg font-medium text-left"
-            >
-              Gender
-            </label>
-            <select
-              name="gender"
-              id="gender"
-              value={formData?.gender}
-              onChange={(e) =>
-                setFormData({ ...formData, gender: e.target.value })
-              }
-              className="flex-1 rounded-md border border-gray-300 bg-white px-4 py-2 text-black text-left shadow-sm"
-              required
-            >
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </select>
-          </div>
-          <div className="flex items-center text-center">
-            <label
-              htmlFor="age"
-              className="block w-1/2 text-lg font-medium text-left"
-            >
-              Age
-            </label>
-            <input
-              type="text"
-              id="age"
-              value={formData?.age}
-              onChange={(e) =>
-                setFormData({ ...formData, age: e.target.value })
-              }
-              placeholder="Please enter your age"
-              className="flex-1 rounded-md border border-gray-300 bg-white px-4 py-2 text-black text-left shadow-sm"
-              required
-            />
-          </div>
-          <div className="flex items-center text-center">
-            <label
-              htmlFor="email"
-              className="block w-1/2 text-lg font-medium text-left"
-            >
-              Email
-            </label>
-            <input
-              type="text"
-              id="emailId"
-              value={formData?.emailId}
-              onChange={(e) =>
-                setFormData({ ...formData, emailId: e.target.value })
-              }
-              placeholder="Please enter your email"
-              className="flex-1 rounded-md border border-gray-300 bg-white px-4 py-2 text-black text-left shadow-sm"
-              required
-            />
-          </div>
-          <div className="flex items-center text-center">
-            <label
-              htmlFor="phone"
-              className="block w-1/2 text-lg font-medium text-left"
-            >
-              Phone No
-            </label>
-            <input
-              type="text"
-              id="phone"
-              value={formData?.phone}
-              onChange={(e) =>
-                setFormData({ ...formData, phone: e.target.value })
-              }
-              placeholder="Please enter your phone number"
-              className="flex-1 rounded-md border border-gray-300 bg-white px-4 py-2 text-black text-left shadow-sm"
-              required
-            />
-          </div>
+          {employeeInfo?.map((subInfo, index) => {
+            const [key, value] = [...subInfo];
+            return (
+              <div className="flex items-center text-center">
+                <label
+                  htmlFor={key}
+                  className="block w-1/2 text-lg font-medium text-left"
+                >
+                  {details[index]}
+                </label>
+                {key !== "gender" ? (
+                  <input
+                    type="text"
+                    id={key}
+                    value={value}
+                    onChange={(e) => updateEmployeeInfo(key, e.target.value)}
+                    placeholder={`Please enter your ${details[
+                      index
+                    ].toLowerCase()}`}
+                    className="flex-1 rounded-md border border-gray-300 bg-white px-4 py-2 text-black text-left shadow-sm"
+                    required
+                  />
+                ) : (
+                  <select
+                    name={key}
+                    id={key}
+                    value={value}
+                    onChange={(e) => updateEmployeeInfo(key, e.target.value)}
+                    className="flex-1 rounded-md border border-gray-300 bg-white px-4 py-2 text-black text-left shadow-sm"
+                    required
+                  >
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
+                )}
+              </div>
+            );
+          })}
+
           <div className="flex items-center text-center mt-2 gap-4">
             <button
               type="submit"

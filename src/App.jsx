@@ -1,5 +1,5 @@
 import "./App.css";
-import Home from "./routes/Main/Home";
+import Home from "./routes/Home/Home";
 import { Routes, Route } from "react-router";
 import ViewEmployee from "./routes/Employees/ViewEmployee";
 import { useState } from "react";
