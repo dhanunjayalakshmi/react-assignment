@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const UpdateDetails = ({ employee, handleUpdate, setShowModal }) => {
+const UpdateDetails = ({ employee, updateEmployee, updateModal }) => {
   const [formData, setFormData] = useState({ ...employee });
 
   const handleCancel = () => {
@@ -9,8 +9,8 @@ const UpdateDetails = ({ employee, handleUpdate, setShowModal }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleUpdate(formData);
-    setShowModal((prev) => !prev);
+    updateEmployee(formData);
+    updateModal();
   };
   return (
     <div className="max-w-3xl max-h-[60%] text-white top-0 bottom-0 left-0 right-0 fixed bg-black bg-opacity-20 border rounded-xl shadow-md flex items-center text-center m-auto">

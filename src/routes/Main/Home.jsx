@@ -1,15 +1,17 @@
 import { useNavigate } from "react-router";
+import { EMPLOYEE_DETAILS } from "../../utils/constants";
 
-const Home = ({ employees, details }) => {
+const Home = ({ employees }) => {
   const navigate = useNavigate();
+  const details = EMPLOYEE_DETAILS;
 
   const handleClick = (employeeId) => {
     navigate(`employee/${employeeId}`);
   };
 
   return (
-    <div className="max-w-3xl flex items-center text-center mt-4 mx-auto">
-      <div className="w-full flex flex-col justify-center items-center px-2 mt-4 ">
+    <div className="w-full flex items-center text-center mt-4">
+      <div className="w-full flex flex-col justify-center items-center mt-4 ">
         <h1 className="text-3xl font-bold">Employees Details</h1>
         <div className="mt-4 w-full shadow-md">
           <table className="min-w-full mt-4 text-left ">
